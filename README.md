@@ -37,14 +37,14 @@ The following steps were performed:
 - Filled missing values in key columns
 - Converted numeric columns stored as text to proper numeric formats
 - Created helper columns:
-  - `cancelled_status`
-  - `total_guest`
-  - `repeated_status`
+  - cancelled_status
+  - total_guest
+  - repeated_status
 - Identified (but did not remove) outliers:
-  - `lead_time > 500`
-  - `total_guest = 0`
-  - `days_in_waiting_list > 50`
-  - `adr ≤ 0`
+  - lead_time > 500
+  - total_guest = 0
+  - days_in_waiting_list > 50
+  - adr ≤ 0
 
 ---
 
@@ -66,10 +66,10 @@ The following steps were performed:
 - Complimentary segments contribute minimal ADR
 
  **Excel File:**  
-[1_hotel_bookings_exploratory_data_analysis.xlsx](1_Hotel Booking Demand Project/1_with_Excel/1_hotel_bookings_exploratory_data_analysis.xlsx)
+[Exploratory Data Analysis with Excel](1_with_Excel/1_hotel_bookings_exploratory_data_analysis.xlsx)
 
  **Dashboard Preview:**  
-![Hotel Booking Dashboard](1_Hotel Booking Demand Project/1_with_Excel/hotel_bookings_dashboard.png)
+![Hotel_Booking_Dashboard](1_with_Excel/hotel_bookings_dashboard.png) Visualization with Excel
 
 ---
 
@@ -103,6 +103,10 @@ The following steps were performed:
 - Longer lead times generally increase cancellation likelihood
 - Lead time is a stronger predictor for **Group and Contract customers**
 
+### See notebook for details  ['Lead_time vs Cancellation'](2_With_Python/2_Cancellation_Analysis.ipynb)
+
+**Results:** !['Lead_time = Cancelled?'](2_With_Python/Image/lead_time_cancel_by_customer_type.png) Lead time vs cancellation status for each customer segment
+
 ---
 
 ### ADR & Pricing Patterns
@@ -120,6 +124,11 @@ The following steps were performed:
 - Resort Hotels display strong seasonality, peaking in August
 - Median ADR remains stable across years, with high-value outliers increasing variability
 - Missing ADR months were identified and visualized
+
+### See notebook for details: ['ADR Analysis'](2_With_Python/3_ADR_pattern_analysis.ipynb)
+
+**Results:** !['ADR by hotel & Market Segment'](2_With_Python/Image/adr_by_market_segment.png) ADR by hotel & Market Segment
+
 
 ---
 
@@ -139,6 +148,28 @@ SQL (PostgreSQL) was used to validate insights, perform efficient aggregations, 
 
 ---
 
+### Methodology
+- Aggregations performed using 'GROUP BY'
+- Median ADR calculated using 'PERCENTILE_CONT(0.5)'
+- Revenue-focused filtering applied (adr > 0)
+- SQL logic aligned with Python analysis for consistency
+
+---
+
+```sql 
+select
+	arrival_date_year,
+	arrival_date_month,
+	round(avg(adr), 2) as avg_adr,
+	round(percentile_cont(0.5) within group (order by adr)::numeric, 2) as median_adr
+from hotel_bookings
+where adr > 0
+group by arrival_date_year, arrival_date_month
+order by
+    arrival_date_year,
+    to_date(arrival_date_month, 'Month');
+```
+
 ### Key Insights
 - City Hotels receive the highest booking volume
 - Transient customers have the highest cancellation rates
@@ -150,13 +181,6 @@ SQL (PostgreSQL) was used to validate insights, perform efficient aggregations, 
 
 ---
 
-### Methodology
-- Aggregations performed using 'GROUP BY'
-- Median ADR calculated using 'PERCENTILE_CONT(0.5)'
-- Revenue-focused filtering applied (adr > 0)
-- SQL logic aligned with Python analysis for consistency
-
----
 
 ## Summary
 Bookings are dominated by Transient and first-time guests, who also account for most cancellations. Repeated guests demonstrate stronger retention potential.
@@ -172,5 +196,5 @@ City Hotels achieve higher ADR primarily through Direct bookings, while Resort H
 
 ---
 
-## Author
+### Author
 **Abigail Oyelowo**

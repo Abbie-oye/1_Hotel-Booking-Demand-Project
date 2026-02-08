@@ -96,7 +96,7 @@ from hotel_bookings
 group by customer_type,repeated_status
 order by customer_type, total_bookings desc;
 
--- ADR by hotel & market segment
+-- ADR by ADR by hotel & market segment
 select
 	hotel,
 	market_segment,
@@ -123,7 +123,7 @@ select
 	round(avg(adr), 2) as avg_adr,
 	round(percentile_cont(0.5) within group (order by adr)::numeric, 2) as median_adr
 from hotel_bookings
-where adr >= 0
+where adr > 0
 group by arrival_date_year, arrival_date_month
 order by
     arrival_date_year,
