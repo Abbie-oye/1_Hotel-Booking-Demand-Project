@@ -103,9 +103,11 @@ The following steps were performed:
 - Longer lead times generally increase cancellation likelihood
 - Lead time is a stronger predictor for **Group and Contract customers**
 
-### See notebook for details  ['Lead_time vs Cancellation'](2_With_Python/2_Cancellation_Analysis.ipynb)
+### See notebook for details:
+['Lead_time vs Cancellation'](2_With_Python/2_Cancellation_Analysis.ipynb)
 
-**Results:** !['Lead_time = Cancelled?'](2_With_Python/Image/lead_time_cancel_by_customer_type.png) Lead time vs cancellation status for each customer segment
+**Results:** 
+!['Lead_time = Cancelled?'](2_With_Python/Image/lead_time_cancel_by_customer_type.png) Lead time vs cancellation status for each customer segment
 
 ---
 
@@ -125,9 +127,11 @@ The following steps were performed:
 - Median ADR remains stable across years, with high-value outliers increasing variability
 - Missing ADR months were identified and visualized
 
-### See notebook for details: ['ADR Analysis'](2_With_Python/3_ADR_pattern_analysis.ipynb)
+### See notebook for details:
+['ADR Analysis'](2_With_Python/3_ADR_pattern_analysis.ipynb)
 
-**Results:** !['ADR by hotel & Market Segment'](2_With_Python/Image/adr_by_market_segment.png) ADR by hotel & Market Segment
+**Results:
+** !['ADR by hotel & Market Segment'](2_With_Python/Image/adr_by_market_segment.png) ADR by hotel & Market Segment
 
 
 ---
